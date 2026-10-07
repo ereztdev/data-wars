@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Data Wars | Build. Automate. Train the AI.</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0b0618" />
+    <link rel="preload" as="image" href="/og-data-wars.jpg" fetchpriority="high" />
+    <meta name="description" content="Build a neon factory colony, automate your drone network, and turn silicon into compute. Can you train the AI before your grid goes dark?" />
+    <link rel="canonical" href="https://zoozoo.courses/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Data Wars" />
+    <meta property="og:url" content="https://zoozoo.courses/" />
+    <meta property="og:title" content="Data Wars | Build. Automate. Train the AI." />
+    <meta property="og:description" content="Build a neon factory colony, automate your drone network, and turn silicon into compute. Can you train the AI before your grid goes dark?" />
+    <meta property="og:image" content="https://zoozoo.courses/og-data-wars-v2.jpg" />
+    <meta property="og:image:secure_url" content="https://zoozoo.courses/og-data-wars-v2.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Data Wars: a neon cyan and magenta sci-fi factory colony with drones and a glowing AI core." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Data Wars | Build. Automate. Train the AI." />
+    <meta name="twitter:description" content="Build a neon factory colony, automate your drone network, and turn silicon into compute. Can you train the AI before your grid goes dark?" />
+    <meta name="twitter:image" content="https://zoozoo.courses/og-data-wars-v2.jpg" />
+    <meta name="twitter:image:alt" content="Data Wars: a neon cyan and magenta sci-fi factory colony with drones and a glowing AI core." />
+
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <section id="dw-splash" aria-label="Loading Data Wars" aria-busy="true">
+      <img class="dw-art" src="/og-data-wars.jpg" alt="Data Wars. Build. Automate. Train the AI." fetchpriority="high" />
+      <div class="dw-shade"></div>
+      <div class="dw-splash-bottom">
+        <p>From silicon to superintelligence. Build your colony, command your drones, and keep the power flowing to train the AI.</p>
+        <a href="mailto:hello@zoozoo.courses">hello@zoozoo.courses</a>
+        <div class="dw-load-row"><span id="dw-loading" role="status">Loading</span><span id="dw-percent">0%</span></div>
+      </div>
+      <div class="dw-track" role="progressbar" aria-label="Game loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="dw-progress"></div></div>
+    </section>
+    <script>
+    (()=>{
+      const start=performance.now(), splash=document.getElementById('dw-splash'), image=splash.querySelector('img'), track=splash.querySelector('.dw-track');
+      let imageReady=image.complete&&image.naturalWidth>0, gameReady=!!window.__dataWarsReady;
+      image.addEventListener('load',()=>{imageReady=true},{once:true});
+      image.addEventListener('error',()=>{imageReady=true},{once:true});
+      window.addEventListener('datawars-ready',()=>requestAnimationFrame(()=>requestAnimationFrame(()=>{gameReady=true})),{once:true});
+      function tick(now){
+        const ready=imageReady&&gameReady;
+        const progress=Math.min(ready?100:94,Math.floor((now-start)/2840*100));
+        document.getElementById('dw-progress').style.width=progress+'%';
+        document.getElementById('dw-percent').textContent=progress+'%';track.setAttribute('aria-valuenow',progress);
+        if(ready&&progress===100){splash.setAttribute('aria-busy','false');splash.classList.add('dw-exit');setTimeout(()=>splash.remove(),160);return}
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      window.addEventListener('error',()=>{if(!gameReady){document.getElementById('dw-loading').textContent='Unable to load. Please refresh.'}});
+    })();
+    </script>
+
+    <div id="app"></div>
+    <div id="hud">
+      <header id="topbar">
+        <div class="brand">DATA<span>WARS</span></div>
+        <div id="res"></div>
+        <div id="power"></div>
+        <div id="speed"></div>
+      </header>
+      <aside id="objective" class="panel"></aside>
+      <aside id="drones" class="panel"></aside>
+      <aside id="info" class="panel hidden"></aside>
+      <nav id="build" class="panel"></nav>
+      <div id="toasts"></div>
+      <aside id="dw-about" aria-label="About Data Wars"><p>Build a colony. Automate your drones. Turn silicon into compute and train the AI.</p><a href="mailto:hello@zoozoo.courses">hello@zoozoo.courses</a></aside>
+      <div id="help">Drag to pan · Scroll or pinch to zoom · Right drag to rotate · Click a module to inspect · Esc cancels · Space pauses</div>
+      <div id="banner" class="hidden"></div>
+    </div>
+  </body>
+</html>
