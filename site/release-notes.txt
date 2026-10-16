@@ -12,3 +12,7 @@ Validation: simulation economy/combat/save migration/deterministic continuation,
 Visual browser inspection was not available in this environment.
 
 Usage tracking: no image generation for this update. Exact token usage is not exposed by this environment.
+
+Data Wars v1.3.1: Mobile arrival
+Centered, responsive mobile welcome screen with desktop/tablet recommendation, Android-coming notice, copy-link control and explicit browser opt-in. Game initialization deferred on phones. Larger tablets and desktops continue normally. Existing gameplay and saves are unchanged.
+Functional tests cover phone and landscape detection, desktop/tablet access, deferred module loading, clipboard fallback, denied session storage, and loader syntax. Visual browser QA remains blocked.

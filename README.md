@@ -1,6 +1,6 @@
 # Data Wars
 
-Current deployed release: **v1.3.0**, at https://www.playdatawars.com.
+Current release: **v1.3.1**, at https://www.playdatawars.com.
 
 ## Run the current version
 
@@ -23,7 +23,7 @@ python3 scripts/verify-site.py
 python3 scripts/package-site.py
 ```
 
-The package command writes `dist/playdatawars.com.zip`. Its contents are the deployable files at the archive root. `docs/deployed-v1.3.0.json` records file hashes and the original deployed ZIP hash.
+The package command writes `dist/playdatawars.com.zip`. Its contents are the deployable files at the archive root. `docs/release-v1.3.1.json` records current file hashes. `docs/deployed-v1.3.0.json` preserves the original release manifest.
 
 For the simulation and DOM/geometry regression checks (Node.js 24 used):
 
@@ -32,6 +32,7 @@ npm install --no-save jsdom
 node tests/simulation.cjs
 node tests/geometry.cjs
 node tests/ui.cjs
+node tests/mobile.cjs
 ```
 
 These checks exercise the deployed bundle directly. They do not replace an interactive visual playtest.
@@ -40,4 +41,8 @@ These checks exercise the deployed bundle directly. They do not replace an inter
 
 `VERSION` contains the semantic release number. Every completed release is tagged `vMAJOR.MINOR.PATCH`. The version-tags workflow tags the exact main-branch commit changing VERSION and refuses to move an existing tag.
 
-v1.3.1 remains planned. See [the pending roadmap](docs/roadmap.md). No tutorial, economy rebalance, ongoing Model upkeep or mobile-store redirect has been implemented in v1.3.0.
+The v1.3.1 mobile welcome screen is implemented. Other requested tutorial and economy work remains planned. See [the pending roadmap](docs/roadmap.md). No tutorial, economy rebalance, ongoing Model upkeep or mobile-store redirect has been implemented.
+
+## Mobile arrival
+
+Phones and compact touch devices see a centered device notice and Android-coming message. Copy the game link for a computer, or explicitly continue in the browser. Gameplay is not initialized until that opt-in. Larger tablets and desktop browsers load normally. Visual browser QA is still outstanding.

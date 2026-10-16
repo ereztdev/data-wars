@@ -1,6 +1,6 @@
-# Pending v1.3.1 design
+# Pending tutorial and economy design
 
-These requests are recorded for continuity, not implemented in v1.3.0. The user is collecting additions and has not instructed execution of this patch.
+The mobile arrival screen has now been requested and implemented in v1.3.1. The following tutorial and economy requests remain pending; do not execute them as part of the mobile-only patch.
 
 - Guided progression: unlock node types one at a time, use short dialogues to confirm actual production/delivery milestones and explain the next step; persist tutorial progress.
 - Show the second military/intelligence strip from the start, shaded and unavailable. Tooltip/tap text explains that bringing The Model online unlocks protection and intelligence.
