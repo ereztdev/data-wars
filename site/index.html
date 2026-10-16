@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Data Wars v1.3 | Build. Automate. Train the AI.</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0b0618" />
+    <link rel="preload" as="image" href="/og-data-wars.jpg" fetchpriority="high" />
+    <meta name="description" content="Play Data Wars v1.3: build a factory colony, automate drones, and turn silicon into compute. Train the AI, then defend your model against Destroyers and Distillers." />
+    <link rel="canonical" href="https://www.playdatawars.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Data Wars" />
+    <meta property="og:url" content="https://www.playdatawars.com/" />
+    <meta property="og:title" content="Data Wars v1.3 | Build. Automate. Train the AI." />
+    <meta property="og:description" content="Play Data Wars v1.3: build a factory colony, automate drones, and turn silicon into compute. Train the AI, then defend your model against Destroyers and Distillers." />
+    <meta property="og:image" content="https://www.playdatawars.com/og-data-wars-v2.jpg" />
+    <meta property="og:image:secure_url" content="https://www.playdatawars.com/og-data-wars-v2.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Data Wars: a neon cyan and magenta sci-fi factory colony with drones and a glowing AI core." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Data Wars v1.3 | Build. Automate. Train the AI." />
+    <meta name="twitter:description" content="Play Data Wars v1.3: build a factory colony, automate drones, and turn silicon into compute. Train the AI, then defend your model against Destroyers and Distillers." />
+    <meta name="twitter:image" content="https://www.playdatawars.com/og-data-wars-v2.jpg" />
+    <meta name="twitter:image:alt" content="Data Wars: a neon cyan and magenta sci-fi factory colony with drones and a glowing AI core." />
+
+    <script type="module" src="/game-v30.js"></script>
+    
+  
+
+<link rel="stylesheet" href="/game-v30.css" />
+  </head>
+  <body>
+    <section id="dw-splash" aria-label="Loading Data Wars" aria-busy="true">
+      <img class="dw-art" src="/og-data-wars.jpg" alt="Data Wars. Build. Automate. Train the AI." fetchpriority="high" />
+      <div class="dw-shade"></div>
+      <div class="dw-splash-bottom">
+        <p>From silicon to superintelligence. Build your colony, command your drones, train the AI, then defend it against enemy incursions.</p>
+        <a href="mailto:hello@playdatawars.com">hello@playdatawars.com</a>
+        <div class="dw-load-row"><span id="dw-loading" role="status">Loading</span><span id="dw-percent">0%</span></div>
+      </div>
+      <div class="dw-track" role="progressbar" aria-label="Game loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="dw-progress"></div></div>
+      <button id="dw-play" type="button" hidden>play</button>
+      <button id="dw-reload" type="button" hidden>Reload</button>
+      <noscript><div class="dw-noscript">JavaScript is required to play. Enable it, then <a href="/">reload the game</a>.</div></noscript>
+    </section>
+    <script>
+    (()=>{
+      const start=performance.now(),splash=document.getElementById('dw-splash'),image=splash.querySelector('img'),track=splash.querySelector('.dw-track'),label=document.getElementById('dw-loading'),play=document.getElementById('dw-play'),reload=document.getElementById('dw-reload');
+      let imageReady=image.complete&&image.naturalWidth>0,gameReady=!!window.__dataWarsReady,failed=false,finished=false;
+      function failLoading(){if(finished||window.__dataWarsStarted)return;failed=true;splash.setAttribute('aria-busy','false');label.textContent='Failed to load. Reload.';document.getElementById('dw-percent').textContent='';play.hidden=true;reload.hidden=false;}
+      const watchdog=setTimeout(failLoading,20000);
+      reload.onclick=()=>window.location.reload();
+      image.addEventListener('load',()=>{imageReady=true},{once:true});image.addEventListener('error',()=>{imageReady=true},{once:true});
+      window.addEventListener('datawars-ready',()=>{gameReady=true;if(failed){failed=false;reload.hidden=true;splash.setAttribute('aria-busy','true');label.textContent='Loading';requestAnimationFrame(tick)}},{once:true});
+      function tick(now){if(failed||finished)return;const ready=imageReady&&gameReady,progress=Math.min(ready?100:94,Math.floor((now-start)/2840*100));document.getElementById('dw-progress').style.width=progress+'%';document.getElementById('dw-percent').textContent=progress+'%';track.setAttribute('aria-valuenow',progress);if(ready&&progress===100){finished=true;clearTimeout(watchdog);splash.setAttribute('aria-busy','false');splash.setAttribute('aria-label','Data Wars');label.textContent='Ready';play.hidden=false;reload.hidden=true;return}requestAnimationFrame(tick)}
+      play.addEventListener('click',()=>{if(!finished)return;window.__dataWarsStarted=true;window.dispatchEvent(new Event('datawars-started'));splash.classList.add('dw-exit');setTimeout(()=>splash.remove(),160)});
+      window.addEventListener('error',event=>{if(gameReady)return;let source=event.filename||event.target?.src||'';if(source.includes('game-v30.js'))failLoading()},true);
+      window.addEventListener('unhandledrejection',()=>{if(!gameReady)failLoading()});
+      requestAnimationFrame(tick);
+    })();
+    </script>
+
+    <aside id="dw-promo" aria-label="Version 1.3: live operations">
+      <button id="dw-promo-tab" aria-expanded="false" aria-controls="dw-promo-content"><span class="promo-dot"></span><span class="promo-tab-label">LIVE OPS</span><span class="promo-tab-version">1.3</span><span class="promo-arrow">‹</span></button>
+      <div id="dw-promo-content" class="promo-boxart">
+        <img class="promo-earth-photo" src="/promo-earth.jpg" alt="Earth's glowing horizon beneath a star-filled sky, photographed from orbit" loading="lazy" />
+        <img class="promo-server-photo" src="/promo-supercomputer.jpg" alt="Rows of real supercomputer racks" loading="lazy" />
+        <div class="promo-photo-grade" aria-hidden="true"></div><div class="promo-print-grain" aria-hidden="true"></div>
+        <button id="dw-promo-close" aria-label="Close preview">×</button>
+        <div class="promo-art-top"><span class="promo-label">LIVE OPERATIONS</span><span class="promo-edition">V 1.3</span></div>
+        <div class="promo-art-copy"><p class="promo-version">DATA WARS</p><h2>STACK UP.<br><span>THEY'RE COMING.</span></h2><p class="promo-art-tagline">You built intelligence.<br>Now the world wants it.</p></div>
+        <div class="promo-art-bottom"><p class="promo-threats"><span>STATE ACTORS.</span> ENEMY WAVES.</p><div class="promo-mission"><div><b>DEFEND</b><span>Keep your model alive.</span></div><div><b>DENY</b><span>Stop them copying its capabilities.</span></div></div><span class="promo-footer">VERSION 1.3 IS HERE · STOCKPILE. FORTIFY. SURVIVE.</span><span class="promo-photo-credit">Photography: NASA · Promotional artwork</span></div>
+      </div>
+    </aside>
+<div id="dw-codex-preview">
+  <button id="codex-toggle" type="button" aria-expanded="false" aria-controls="codex-panel"><span>CODEX</span><span class="codex-tab-arrow">›</span></button>
+  <section id="codex-panel" class="codex-window" inert aria-label="Data Wars glossary preview">
+    <header class="codex-header"><div class="codex-brand"><i data-lucide="orbit" aria-hidden="true"></i> DATA WARS <span>/ FIELD GUIDE</span></div><button id="codex-close" type="button" aria-label="Close Codex">×</button></header>
+    <div class="codex-title"><div><p class="codex-eyebrow">KNOW YOUR COLONY.</p><h2>Colony Codex<span>_</span></h2></div><span class="codex-version">BUILD / TRAIN / DEFEND</span></div>
+    <nav class="codex-tabs" aria-label="Glossary sections"><button type="button" data-section="resources" aria-pressed="true" class="cursor-interaction">Resources</button><button type="button" data-section="components" aria-pressed="false" class="cursor-interaction">Components</button><button type="button" data-section="operations" aria-pressed="false" class="cursor-interaction">Live ops</button><button type="button" data-section="signals" aria-pressed="false" class="cursor-interaction">Signals</button></nav>
+    <div class="codex-body"><div id="codex-index" class="codex-index" aria-label="Guide entries"></div><article id="codex-detail" class="codex-detail" aria-live="polite"></article></div>
+    <footer class="codex-footer"><span><i data-lucide="book-open" aria-hidden="true"></i> YOUR COLONY, DECODED.</span><span>SELECT AN ENTRY TO INSPECT</span></footer>
+  </section>
+</div>
+
+    <div id="app"></div>
+    <div id="dw-awakening" hidden aria-hidden="true"><div class="dw-awakening-ring"></div><p>MODEL ONLINE<span>LIVE OPERATIONS UNLOCKED</span></p></div>
+    <div id="hud">
+      <header id="topbar">
+        <div class="brand">DATA<span>WARS</span></div>
+        <div id="res"></div>
+        <div id="power"></div>
+        <div id="speed"></div>
+      </header>
+      <aside id="objective" class="panel"></aside>
+      <aside id="drones" class="panel"></aside>
+      <aside id="info" class="panel hidden"></aside>
+      <nav id="build" class="panel"></nav>
+      <div id="toasts"></div>
+      <aside id="dw-about" aria-label="About Data Wars"><p>Build a colony. Automate your drones. Turn silicon into compute and train the AI.</p><a href="mailto:hello@playdatawars.com">hello@playdatawars.com</a></aside>
+      <div id="help">WASD to move · Drag to pan · Scroll or pinch to zoom · Right drag to rotate · Click a module to inspect · Delete removes selected element · Esc cancels · Space pauses</div>
+      <div id="banner" class="hidden"></div>
+      <footer id="dw-release-footer" aria-label="Game version and hosting credit">
+        <div class="dw-save-line"><span id="dw-save-status" role="status">Preparing autosave…</span><button id="dw-new-game" type="button">New game</button></div>
+        <div class="dw-release-line"><span class="dw-current-version">DATA WARS v1.3</span><span class="dw-release-divider">·</span><span>Live operations: Destroyers &amp; Distillers</span></div>
+        <a href="https://agentinbox.pro" target="_blank" rel="noopener noreferrer"><span>Powered by</span> agentinbox.pro <span aria-hidden="true">↗</span></a>
+      </footer>
+    </div>
+  </body>
+</html>

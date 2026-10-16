@@ -1,0 +1,45 @@
+name: Version tags
+on:
+  push:
+    branches: [main]
+    paths:
+      - VERSION
+      - .github/workflows/version-tags.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: version-tags-main
+  cancel-in-progress: false
+jobs:
+  tag-release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release commit
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+      - name: Create immutable version tag
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(tr -d '\r\n' < VERSION)"
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo 'VERSION must contain MAJOR.MINOR.PATCH'
+            exit 1
+          fi
+          tag="v${version}"
+          if git show-ref --verify --quiet "refs/tags/${tag}"; then
+            existing="$(git rev-parse "${tag}^{commit}")"
+            if [[ "$existing" != "$GITHUB_SHA" ]]; then
+              echo "Refusing to move existing tag ${tag}"
+              exit 1
+            fi
+            echo "${tag} already points at this release"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git tag -a "$tag" "$GITHUB_SHA" -m "Data Wars ${tag}"
+          git push origin "refs/tags/${tag}"

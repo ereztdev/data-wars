@@ -1,0 +1,14 @@
+Data Wars v1.3: Live operations
+
+Complete Model training to carry your colony into live operations with a 400 ms transition.
+Five new structures: Sentinel, Bastion, Cipher, Signals, Strike uplink.
+Destroyer and Distiller incursions begin after a 180-second simulation preparation window.
+Existing resources supply defenses, shields, intelligence and long-range strikes.
+Hull damage, selected-card repairs, model theft, and recovery after defeat.
+Pause/resume is available only in the selected element card.
+Existing saves migrate without resetting the base. Combat, wave timers and extraction persist.
+
+Validation: simulation economy/combat/save migration/deterministic continuation, geometry/effect lifecycle, UI transition/unlock/pause/recovery, every Codex entry.
+Visual browser inspection was not available in this environment.
+
+Usage tracking: no image generation for this update. Exact token usage is not exposed by this environment.
